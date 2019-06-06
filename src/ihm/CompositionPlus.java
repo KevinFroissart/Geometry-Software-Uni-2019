@@ -10,4 +10,4 @@ public class CompositionPlus extends Composition{
 		GrilleAdaptable grille = new GrilleAdaptable(composition, pane, 1, 1);	
 		return grille;
 	}	
-}<>
+}

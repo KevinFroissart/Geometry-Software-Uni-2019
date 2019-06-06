@@ -64,6 +64,15 @@ public class Main extends Application{
 		});
 		
 		nouveau.setOnAction( e-> {
+			composition.clear();
+			grille.getChildren().clear();
+			grille.getChildren().add(composition.getGrille());
+			zoom = 33;
+			Main main = new Main();
+			main.start(stage);
+		});
+		
+		ajouterMotif.setOnAction( e-> {
 			
 		});
 		

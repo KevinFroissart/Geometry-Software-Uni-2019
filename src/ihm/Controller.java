@@ -105,7 +105,8 @@ public class Controller  {
 	}
 
 	public void doTranslation(ActionEvent actionEvent) {
-
+		TranslationParam.display();
+		System.out.println("oui");
 	}
 
 	public void doRotation(ActionEvent actionEvent) {

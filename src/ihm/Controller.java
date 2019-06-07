@@ -34,7 +34,6 @@ public class Controller  {
 	BorderPane broderPane;
 
 	@FXML
-	static
 	Pane pane;
 
 	@FXML
@@ -56,23 +55,22 @@ public class Controller  {
 	VBox vBoxDroite;
 
 	private static Composition composition;
-	/*private ArrayList<Boolean> display = new ArrayList<>(Arrays.asList(true));
+	private ArrayList<Boolean> display = new ArrayList<>(Arrays.asList(true));
 	private ArrayList<Transformation> transfo = new ArrayList<>();
 	private Motif motif;
 	private Color couleur;
 	private static int zoom;
-	private static GrilleAdaptable grille;*/
+	private static GrilleAdaptable grille;
 
 
 
 	public void initialize() {
-	/*	pane = new Pane();
 		pane.prefHeight(320.0);
-		pane.prefWidth(398.0);*/
+		pane.prefWidth(398.0);
 		//BorderPane.setAlignment(pane, new Insets(10,10,10,10));
 		composition = new Composition();
 		composition.setZoom(30.0, 200.0, 200.0);
-		//grille = new GrilleAdaptable(composition, pane, 1, 1);
+		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
 	}
 

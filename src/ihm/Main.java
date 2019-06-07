@@ -11,7 +11,9 @@ public class Main extends Application {
 	
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../ihm.fxml"));
+    	FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../ihm.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("IHM S2 FROISSART/BOURDIN");
         primaryStage.setScene(new Scene(root, 300, 600));
         primaryStage.getIcons().add(new Image("File:ressources/logo.png"));

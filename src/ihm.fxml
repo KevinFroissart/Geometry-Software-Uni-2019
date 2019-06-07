@@ -16,12 +16,12 @@
    <top>
       <ToolBar fx:id="toolBarHaut" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="bouttonLancer" mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
-            <Button fx:id="bouttonReset" mnemonicParsing="false" onAction="#doReset" text="Reset" />
-            <Button fx:id="bouttonMotif" mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
-            <Button fx:id="bouttonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
-            <Button fx:id="bouttonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
-            <Button fx:id="bouttonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
+          <Button fx:id="boutonLancer" mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
+            <Button fx:id="boutonReset" mnemonicParsing="false" onAction="#doReset" text="Reset" />
+            <Button fx:id="boutonMotif" mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
+            <Button fx:id="boutonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
+            <Button fx:id="boutonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
+            <Button fx:id="boutonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
         </items>
       </ToolBar>
    </top>
@@ -29,8 +29,8 @@
       <ToolBar fx:id="toolBarBas" prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <items>
             <Label fx:id="zoomLabel" prefHeight="17.0" prefWidth="38.0" text="Zoom" />
-          <Button fx:id="bouttonPlus" mnemonicParsing="false" onAction="#doZoomPlus" text="+" />
-            <Button fx:id="bouttonMoins" mnemonicParsing="false" onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
+          <Button fx:id="boutonPlus" mnemonicParsing="false" onAction="#doZoomPlus" text="+" />
+            <Button fx:id="boutonMoins" mnemonicParsing="false" onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
         </items>
       </ToolBar>
    </bottom>

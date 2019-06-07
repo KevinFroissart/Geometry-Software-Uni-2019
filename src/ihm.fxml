@@ -9,38 +9,38 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.Controller">
+<BorderPane fx:id="broderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.Controller">
    <center>
-      <Pane prefHeight="320.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="pane" prefHeight="320.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ToolBar fx:id="toolBarHaut" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
-            <Button mnemonicParsing="false" onAction="#doReset" text="Reset" />
-            <Button mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
-            <Button mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
-            <Button mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
-            <Button mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
+          <Button fx:id="bouttonLancer" mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
+            <Button fx:id="bouttonReset" mnemonicParsing="false" onAction="#doReset" text="Reset" />
+            <Button fx:id="bouttonMotif" mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
+            <Button fx:id="bouttonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
+            <Button fx:id="bouttonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
+            <Button fx:id="bouttonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
         </items>
       </ToolBar>
    </top>
    <bottom>
-      <ToolBar prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <ToolBar fx:id="toolBarBas" prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <items>
-            <Label prefHeight="17.0" prefWidth="38.0" text="Zoom" />
-          <Button mnemonicParsing="false" onAction="#doZoomPlus" text="+" />
-            <Button mnemonicParsing="false" onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
+            <Label fx:id="zoomLabel" prefHeight="17.0" prefWidth="38.0" text="Zoom" />
+          <Button fx:id="bouttonPlus" mnemonicParsing="false" onAction="#doZoomPlus" text="+" />
+            <Button fx:id="bouttonMoins" mnemonicParsing="false" onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
         </items>
       </ToolBar>
    </bottom>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vBoxDroite" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Accordion prefHeight="72.0" prefWidth="100.0">
+            <Accordion fx:id="accordeon" prefHeight="72.0" prefWidth="100.0">
               <panes>
-                <TitledPane animated="false" prefHeight="78.0" prefWidth="169.0" text="Liste des transformations " />
-                <TitledPane animated="false" text="Matrices" />
+                <TitledPane fx:id="transfoList" animated="false" prefHeight="78.0" prefWidth="169.0" text="Liste des transformations " />
+                <TitledPane fx:id="matriceList" animated="false" text="Matrices" />
               </panes>
             </Accordion>
          </children>

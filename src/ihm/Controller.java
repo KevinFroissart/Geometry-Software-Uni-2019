@@ -39,7 +39,7 @@ public class Controller  {
 	ToolBar toolBarHaut,toolBarBas;
 
 	@FXML
-	Button bouttonLancer,bouttonReset,bouttonMotif,bouttonTranslation,bouttonRotation,bouttonHomothetie,bouttonPlus,bouttonMoins;
+	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins;
 
 	@FXML
 	Label zoomLabel;
@@ -74,10 +74,10 @@ public class Controller  {
 
 
 	public void doLancer(ActionEvent actionEvent) {
-		bouttonLancer.setDisable(true);
+		boutonLancer.setDisable(true);
 		try {
 			motif = composition.getStep(0);
-			motif.setStroke(Color.ALICEBLUE);
+			motif.setStroke(Color.BLUE);
 			pane.getChildren().add(motif.toGroup());
 			Timeline tl = composition.animate(
 					motif.toGroup(),
@@ -87,7 +87,7 @@ public class Controller  {
 					);
 			tl.play();
 			tl.setOnFinished(e-> {
-				bouttonLancer.setDisable(false);
+				boutonLancer.setDisable(false);
 			});    
 		} catch (LibraryException e) {
 			e.printStackTrace();
@@ -100,6 +100,7 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		display.clear();
 		display.add(true);
+		boutonLancer.setDisable(false);
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {

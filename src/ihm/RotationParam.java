@@ -15,20 +15,9 @@ public class RotationParam {
 
 	static double X;
 	static double Y;
+	static boolean res = false;
 
-	public static boolean invalidPoint(TextField input1, TextField input2) {
-
-		try {
-			X = Double.parseDouble(input1.getText());
-			Y = Double.parseDouble(input2.getText());
-			return true;
-		}catch(NumberFormatException e) {
-			return false;
-		}
-
-	}
-
-	public static void display() {
+	public static boolean display() {
 		Stage stage = new Stage();
 
 		Label label = new Label("Veuillez entrer les coordonées");
@@ -46,17 +35,21 @@ public class RotationParam {
 
 
 		valider.setOnAction(e -> {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
 				try {
-					invalidPoint(coordX, coordY);
+
 					double angleDeg = Double.parseDouble(angle.getText());
 					Controller.transfo.add(new Rotation(angleDeg, X, Y));
 					stage.close();
+					RotationParam.res = true;
 				}catch(NumberFormatException error) {
 					System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
-			}
+				}
+			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
 		retour.setOnAction(e -> { 
+			RotationParam.res = false;
 			stage.close();
 		});
 
@@ -72,5 +65,15 @@ public class RotationParam {
 		stage.setMinHeight(150);
 		stage.setScene(scene);
 		stage.showAndWait();
+
+		return RotationParam.res;
+	}
+	
+	public static boolean doubleInt(TextField coordX, TextField coordY, TextField angle) {
+		boolean res = false;
+		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
+		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
+		if(angle.getText().matches("([0-9]*)\\.([0-9]*)") || angle.getText().matches("[0-9]*")) {	res = true; }}}
+		return res;
 	}
 }

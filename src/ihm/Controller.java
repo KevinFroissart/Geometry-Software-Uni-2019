@@ -2,6 +2,7 @@ package ihm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javafx.animation.Timeline;
@@ -53,10 +54,11 @@ public class Controller  {
 	@FXML
 	VBox vBoxDroite;
 
-	private static Composition composition;
+	public static Composition composition;
 	private List<Node> allNodes;
 	private ArrayList<Boolean> display = new ArrayList<>(Arrays.asList(true));
 	public static ArrayList<Transformation> transfo = new ArrayList<>();
+	public static ArrayList<Maison> motifList = new ArrayList<>();
 	private Motif motif;
 	private Color couleur;
 	private static double zoom = 30.0;
@@ -93,7 +95,7 @@ public class Controller  {
 			} catch (LibraryException e) {
 				e.printStackTrace();
 			}
-		}
+		} else Erreur.popUp("Aucune tranformation", "Ajoutez des transformations pour pouvoir les animer");
 	}
 
 	public void doReset(ActionEvent actionEvent) {		    	
@@ -101,13 +103,16 @@ public class Controller  {
 		pane.getChildren().clear();
 		pane.getChildren().add(composition.getGrille(pane));
 		transfo.clear();
+		motifList.clear();
 		display.clear();
 		display.add(true);
 		boutonLancer.setDisable(false);
+		composition.setZoom(30.0, 400.0, 342.5);
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {
 		Motif maison = new Maison(composition);
+		motifList.add((Maison) maison);
 		composition.setMotif(maison);
 		try {
 			allNodes = composition.draw(display);
@@ -118,21 +123,21 @@ public class Controller  {
 	}
 
 	public void doTranslation(ActionEvent actionEvent) {
-		TranslationParam.display();
-		doTransormation();
+		if(!motifList.isEmpty()) {if(TranslationParam.display()) {doTransformation();}}
+		else Erreur.popUp("Aucun motif", "Veuillez selectionner un motif");
 	}
 
 	public void doRotation(ActionEvent actionEvent) {
-		RotationParam.display();
-		doTransormation();
-	}
+		if(!motifList.isEmpty()) {if(RotationParam.display()) {doTransformation();}}
+		else Erreur.popUp("Aucun motif", "Veuillez selectionner un motif");
+	}	
 
 	public void doHomothetie(ActionEvent actionEvent) {
-		HomothetieParam.display();
-		doTransormation();
-	}
+		if(!motifList.isEmpty()) {if(HomothetieParam.display()) {doTransformation();}}
+		else Erreur.popUp("Aucun motif", "Veuillez selectionner un motif");
+	}	
 
-	public void doTransormation() {
+	public void doTransformation() {
 		for (Transformation transfo : transfo) {
 			composition.add((Transformation) transfo.getTransform());
 			display.add(true);

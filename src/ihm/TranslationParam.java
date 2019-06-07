@@ -15,7 +15,7 @@ public class TranslationParam {
 
 	static double X;
 	static double Y;
-
+	static boolean res = false;
 	public static boolean invalidPoint(TextField input1, TextField input2) {
 
 		try {
@@ -28,7 +28,8 @@ public class TranslationParam {
 
 	}
 
-	public static void display() {
+	public static boolean display() {
+
 		Stage stage = new Stage();
 
 		Label label = new Label("Veuillez entrer les coordonées");
@@ -44,16 +45,19 @@ public class TranslationParam {
 
 
 		valider.setOnAction(e -> {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
 				try {
-					invalidPoint(coordX, coordY);
 					Controller.transfo.add(new Translation(X, Y));
 					stage.close();
+					TranslationParam.res = true;
 				}catch(NumberFormatException error) {
 					System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
-			}
+				}
+			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
 		retour.setOnAction(e -> { 
+			RotationParam.res = false;
 			stage.close();
 		});
 
@@ -69,5 +73,14 @@ public class TranslationParam {
 		stage.setMinHeight(150);
 		stage.setScene(scene);
 		stage.showAndWait();
+
+		return TranslationParam.res;
+	}
+	
+	public static boolean doubleInt(TextField coordX, TextField coordY) {
+		boolean res = false;
+		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
+		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) { res = true; }}
+		return res;
 	}
 }

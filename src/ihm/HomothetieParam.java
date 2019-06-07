@@ -15,20 +15,9 @@ public class HomothetieParam {
 
 	static double X;
 	static double Y;
+	static boolean res = false;
 
-	public static boolean invalidPoint(TextField input1, TextField input2) {
-
-		try {
-			X = Double.parseDouble(input1.getText());
-			Y = Double.parseDouble(input2.getText());
-			return true;
-		}catch(NumberFormatException e) {
-			return false;
-		}
-
-	}
-
-	public static void display() {
+	public static boolean display() {
 		Stage stage = new Stage();
 
 		Label label = new Label("Veuillez entrer les coordonées");
@@ -46,17 +35,20 @@ public class HomothetieParam {
 
 
 		valider.setOnAction(e -> {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
 				try {
-					invalidPoint(coordX, coordY);
 					double setScale = Double.parseDouble(scale.getText());
 					Controller.transfo.add(new Homothetie(setScale, X, Y));
 					stage.close();
+					HomothetieParam.res = true;
 				}catch(NumberFormatException error) {
 					System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
 				}
+			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
 		retour.setOnAction(e -> { 
+			RotationParam.res = false;
 			stage.close();
 		});
 
@@ -72,5 +64,15 @@ public class HomothetieParam {
 		stage.setMinHeight(150);
 		stage.setScene(scene);
 		stage.showAndWait();
-		}
+
+		return HomothetieParam.res;
+	}
+
+	public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {
+		boolean res = false;
+		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
+		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
+		if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
+		return res;
+	}
 }

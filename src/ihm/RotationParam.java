@@ -1,6 +1,5 @@
 package ihm;
 
-import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,14 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import transforms.elementaires.Homothetie;
 import transforms.elementaires.Rotation;
-import transforms.elementaires.Transformation;
-import transforms.elementaires.Translation;
 
 public class RotationParam {
-
-	static ArrayList<Transformation> listeTransformations = new ArrayList<Transformation>();
 
 	static double X;
 	static double Y;
@@ -52,15 +46,13 @@ public class RotationParam {
 
 
 		valider.setOnAction(e -> {
-			if(coordX.getText().matches("[0-9]*'.'[0-9]*") && coordY.getText().matches("[0-9]*'.'[0-9]*") && angle.getText().matches("[0-9]*'.'[0-9]*")) {
 				try {
 					invalidPoint(coordX, coordY);
 					double angleDeg = Double.parseDouble(angle.getText());
-					listeTransformations.add(new Rotation(angleDeg, X, Y));
+					Controller.transfo.add(new Rotation(angleDeg, X, Y));
 					stage.close();
 				}catch(NumberFormatException error) {
 					System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
-				}
 			}
 		});
 
@@ -74,13 +66,11 @@ public class RotationParam {
 
 		Scene scene = new Scene(layout);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("Translation");
+		stage.setTitle("Rotation");
 		stage.getIcons().add(new Image("File:ressources/param.png"));
 		stage.setMinWidth(350);
 		stage.setMinHeight(150);
 		stage.setScene(scene);
 		stage.showAndWait();
-
-		//return listeTransformations;
 	}
 }

@@ -2,11 +2,13 @@ package ihm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,9 +19,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polyline;
-import javafx.stage.Stage;
-import sun.security.krb5.internal.PAEncTSEnc;
 import transforms.Composition;
 import transforms.LibraryException;
 import transforms.elementaires.Transformation;
@@ -31,7 +30,7 @@ public class Controller  {
 
 	@FXML
 	static
-	BorderPane broderPane;
+	BorderPane borderPane;
 
 	@FXML
 	Pane pane;
@@ -55,37 +54,35 @@ public class Controller  {
 	VBox vBoxDroite;
 
 	private static Composition composition;
+	private List<Node> allNodes;
 	private ArrayList<Boolean> display = new ArrayList<>(Arrays.asList(true));
-	private ArrayList<Transformation> transfo = new ArrayList<>();
+	public static ArrayList<Transformation> transfo = new ArrayList<>();
 	private Motif motif;
 	private Color couleur;
 	private static int zoom;
 	private static GrilleAdaptable grille;
 
-
-
 	public void initialize() {
 		pane.prefHeight(320.0);
 		pane.prefWidth(398.0);
-		//BorderPane.setAlignment(pane, new Insets(10,10,10,10));
 		composition = new Composition();
-		composition.setZoom(30.0, 200.0, 200.0);
+		composition.setZoom(30.0, 400.0, 342.5);
 		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
+		dragGrille();
 	}
 
 
 	public void doLancer(ActionEvent actionEvent) {
-		final int firstStep = 0;
-		final int lastStep = display.size()-1;
+		bouttonLancer.setDisable(true);
 		try {
-			motif = composition.getStep(firstStep);
+			motif = composition.getStep(0);
 			motif.setStroke(couleur);
 			pane.getChildren().add(motif.toGroup());
 			Timeline tl = composition.animate(
 					motif.toGroup(),
-					firstStep,
-					lastStep,
+					0,
+					display.size()-1,
 					e -> pane.getChildren().remove(motif.toGroup())
 					);
 			tl.play();
@@ -108,18 +105,43 @@ public class Controller  {
 	public void doAjouterMotif(ActionEvent actionEvent) {
 		Motif maison = new Maison(composition);
 		composition.setMotif(maison);
+		try {
+			allNodes = composition.draw(display);
+		} catch (LibraryException e) {
+			e.printStackTrace();
+		}
+		pane.getChildren().addAll(allNodes);
 	}
 
 	public void doTranslation(ActionEvent actionEvent) {
 		TranslationParam.display();
+		doTransormation();
 	}
 
 	public void doRotation(ActionEvent actionEvent) {
 		RotationParam.display();
+		doTransormation();
 	}
 
 	public void doHomothetie(ActionEvent actionEvent) {
 		HomothetieParam.display();
+		doTransormation();
+	}
+
+	public void doTransormation() {
+	for (Transformation transfo : transfo) {
+			composition.add((Transformation) transfo.getTransform());
+			display.add(true);
+		}
+		try {
+			allNodes = composition.draw(display);
+		} catch (LibraryException e) {
+			e.printStackTrace();
+		}
+
+		pane.getChildren().addAll(allNodes);
+		//matriceA.getItems().clear();
+		//matriceA.getItems().addAll(composition.getSequence());
 	}
 
 	public void doZoomPlus(ActionEvent actionEvent) {
@@ -132,4 +154,10 @@ public class Controller  {
 		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 	}
 
+	public void dragGrille() {
+		pane.setOnMouseDragged( e-> {
+			composition.offsetXProperty().set(e.getX());
+			composition.offsetYProperty().set(e.getY());
+		});
+	}
 }

@@ -76,7 +76,7 @@ public class Controller  {
 
 
 	public void doLancer(ActionEvent actionEvent) {
-		/*final int firstStep = 0;
+		final int firstStep = 0;
 		final int lastStep = display.size()-1;
 		try {
 			motif = composition.getStep(firstStep);
@@ -94,42 +94,42 @@ public class Controller  {
 			});    
 		} catch (LibraryException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	public void doReset(ActionEvent actionEvent) {		    	
-		/*composition.getSequence().clear();
+		composition.getSequence().clear();
 		pane.getChildren().clear();
 		pane.getChildren().add(composition.getGrille(pane));
 		display.clear();
-		display.add(true);*/
+		display.add(true);
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {
-		/*Motif maison = new Maison(composition);
-		composition.setMotif(maison);*/
+		Motif maison = new Maison(composition);
+		composition.setMotif(maison);
 	}
 
 	public void doTranslation(ActionEvent actionEvent) {
-		//TranslationParam.display();
+		TranslationParam.display();
 	}
 
 	public void doRotation(ActionEvent actionEvent) {
-		//RotationParam.display();
+		RotationParam.display();
 	}
 
 	public void doHomothetie(ActionEvent actionEvent) {
-		//HomothetieParam.display();
+		HomothetieParam.display();
 	}
 
 	public void doZoomPlus(ActionEvent actionEvent) {
-		/*if(zoom < 90) zoom += 5 + zoom/25.25;
-		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());*/
+		if(zoom < 90) zoom += 5 + zoom/25.25;
+		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 	}
 
 	public void doZoomMoins(ActionEvent actionEvent) {
-		/*if(zoom > 15) zoom -= 5 + zoom/15.25;
-		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());*/
+		if(zoom > 15) zoom -= 5 + zoom/15.25;
+		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 	}
 
 }

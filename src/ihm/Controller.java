@@ -74,23 +74,25 @@ public class Controller  {
 
 
 	public void doLancer(ActionEvent actionEvent) {
-		boutonLancer.setDisable(true);
-		try {
-			motif = composition.getStep(0);
-			motif.setStroke(Color.BLUE);
-			pane.getChildren().add(motif.toGroup());
-			Timeline tl = composition.animate(
-					motif.toGroup(),
-					0,
-					display.size()-1,
-					e -> pane.getChildren().remove(motif.toGroup())
-					);
-			tl.play();
-			tl.setOnFinished(e-> {
-				boutonLancer.setDisable(false);
-			});    
-		} catch (LibraryException e) {
-			e.printStackTrace();
+		if(!transfo.isEmpty()) {
+			try {
+				boutonLancer.setDisable(true);
+				motif = composition.getStep(0);
+				motif.setStroke(Color.BLUE);
+				pane.getChildren().add(motif.toGroup());
+				Timeline tl = composition.animate(
+						motif.toGroup(),
+						0,
+						display.size()-1,
+						e -> pane.getChildren().remove(motif.toGroup())
+						);
+				tl.play();
+				tl.setOnFinished(e-> {
+					boutonLancer.setDisable(false);
+				});    
+			} catch (LibraryException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -98,6 +100,7 @@ public class Controller  {
 		composition.getSequence().clear();
 		pane.getChildren().clear();
 		pane.getChildren().add(composition.getGrille(pane));
+		transfo.clear();
 		display.clear();
 		display.add(true);
 		boutonLancer.setDisable(false);
@@ -130,7 +133,7 @@ public class Controller  {
 	}
 
 	public void doTransormation() {
-	for (Transformation transfo : transfo) {
+		for (Transformation transfo : transfo) {
 			composition.add((Transformation) transfo.getTransform());
 			display.add(true);
 		}

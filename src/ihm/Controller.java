@@ -59,14 +59,14 @@ public class Controller  {
 	public static ArrayList<Transformation> transfo = new ArrayList<>();
 	private Motif motif;
 	private Color couleur;
-	private static int zoom;
+	private static double zoom = 30.0;
 	private static GrilleAdaptable grille;
 
 	public void initialize() {
 		pane.prefHeight(320.0);
 		pane.prefWidth(398.0);
 		composition = new Composition();
-		composition.setZoom(30.0, 400.0, 342.5);
+		composition.setZoom(zoom, 400.0, 342.5);
 		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
 		dragGrille();

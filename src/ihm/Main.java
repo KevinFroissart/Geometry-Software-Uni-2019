@@ -1,7 +1,14 @@
 package ihm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,18 +20,30 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import transforms.Composition;
+import transforms.LibraryException;
 import transforms.mobile.GrilleAdaptable;
+import transforms.mobile.Maison;
+import transforms.mobile.Motif;
+import transforms.mobile.MotifConcret;
 
 public class Main extends Application{
 
-
 	private static double zoom = 33.0;
+	private static double X = 0;
+	private static double Y = 0; 
 	public static Stage stage;
 	public static Scene scene;
 	public static BorderPane root;
 	public static Pane espaceTravail;
 	private static GrilleAdaptable grille;
 	private static Composition composition;
+	private MotifConcret motif;
+
+	private List<Node> allNodes;
+	private ArrayList<Boolean> display = new ArrayList<>();
+	private ObservableList<String> matricesA = FXCollections.observableArrayList();
+	private ObservableList<String> matricesC = FXCollections.observableArrayList();
+	private double valeurX;
 
 
 	public void start(Stage stage) {
@@ -58,44 +77,47 @@ public class Main extends Application{
 		Button rotation = new Button("Rotation");
 		Button homothetie = new Button("Homothetie");
 		Button aide = new Button("aide");
-		
+
 		lancer.setOnAction( e-> {
-			
+
 		});
-		
+
 		nouveau.setOnAction( e-> {
 			composition.clear();
 			grille.getChildren().clear();
 			grille.getChildren().add(composition.getGrille());
 			zoom = 33;
+			stage.close();
 			Main main = new Main();
 			main.start(stage);
 		});
-		
+
 		ajouterMotif.setOnAction( e-> {
-			
+			Maison maison = new Maison(composition);
+
+			grille.getChildren().add(composition.getGrille());
 		});
-		
+
 		translation.setOnAction( e-> {
-			
+
 		});
-		
+
 		rotation.setOnAction( e-> {
-			
+
 		});
-		
+
 		homothetie.setOnAction( e-> {
-			
+
 		});
-		
+
 		aide.setOnAction( e -> {
-			
+
 		});
-		
-		
-		
-		
-		
+
+
+
+
+
 
 		//VBox.setMargin(actionTool, new Insets(0,10,10,10));
 
@@ -108,22 +130,22 @@ public class Main extends Application{
 
 	public static void initialisationParametres() {
 		VBox parametres = new VBox();
-		
+
 		parametres.setStyle("-fx-background-color: white; -fx-border-width: 0 2 0 0; -fx-border-color: lightgrey");
 		parametres.prefWidthProperty().bind(root.widthProperty().divide(6));
-		
+
 		root.setLeft(parametres);
 	}
 
 	public static void initialisationMatrice() {
 		VBox matricesContainer = new VBox();
-		
+
 		matricesContainer.setStyle("-fx-background-color: white; -fx-border-width: 0 0 0 2; -fx-border-color: lightgrey");
 		matricesContainer.prefWidthProperty().bind(root.widthProperty().divide(6));
 
 		root.setRight(matricesContainer);
 	}
-	
+
 	public static void initialisationEspaceDeTravail() {
 		espaceTravail = new Pane();
 		espaceTravail.setStyle("-fx-background-color: AliceBlue; -fx-border-width: 2");
@@ -135,27 +157,27 @@ public class Main extends Application{
 			composition.offsetXProperty().set(e.getX());
 			composition.offsetYProperty().set(e.getY());
 		});
-						
+
 		espaceTravail.getChildren().add(grille);
-		
+
 		root.setCenter(espaceTravail);
 	}
-	
+
 	public static void initialisationZoom() {
 		HBox boutonsZoom = new HBox();
 		Button plus = new Button("+");
 		Button moins = new Button("-");
-		
+
 		plus.setOnAction( e-> {
 			if(zoom < 90) zoom += 5 + zoom/25.25;
 			composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 		});
-		
+
 		moins.setOnAction( e-> {
 			if(zoom > 15) zoom -= 5 + zoom/15.25;
 			composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 		});
-		
+
 
 		boutonsZoom.getChildren().addAll(plus, moins);
 		root.setBottom(boutonsZoom);

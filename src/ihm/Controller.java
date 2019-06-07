@@ -77,7 +77,7 @@ public class Controller  {
 		bouttonLancer.setDisable(true);
 		try {
 			motif = composition.getStep(0);
-			motif.setStroke(couleur);
+			motif.setStroke(Color.ALICEBLUE);
 			pane.getChildren().add(motif.toGroup());
 			Timeline tl = composition.animate(
 					motif.toGroup(),

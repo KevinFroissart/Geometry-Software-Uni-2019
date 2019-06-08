@@ -20,7 +20,7 @@ public class HomothetieModif {
 	public static boolean display(Transformation transformation) {
 		Stage stage = new Stage();
 
-		Label label = new Label("Veuillez entrer les coordonées");
+		Label label = new Label("Veuillez entrer les coordonnées");
 
 		Button valider = new Button("Valider");
 		Button retour = new Button("Retour");
@@ -40,7 +40,6 @@ public class HomothetieModif {
 					double x =Double.parseDouble(coordX.getText());
 					double y =Double.parseDouble(coordY.getText());
 					double setScale = Double.parseDouble(scale.getText());
-					
 					modification = new Homothetie(setScale, x, y);
 					stage.close();
 					HomothetieModif.res = true;

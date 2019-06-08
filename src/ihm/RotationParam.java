@@ -19,7 +19,7 @@ public class RotationParam {
 	public static boolean display() {
 		Stage stage = new Stage();
 
-		Label label = new Label("Veuillez entrer les coordonées");
+		Label label = new Label("Veuillez entrer les coordonnées");
 
 		Button valider = new Button("Valider");
 		Button retour = new Button("Retour");

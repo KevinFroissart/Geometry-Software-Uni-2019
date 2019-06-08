@@ -233,10 +233,6 @@ public class Controller  {
 		if(!matriceA.getSelectionModel().isEmpty()) {
 			MultipleSelectionModel<Transformation> selected = matriceA.getSelectionModel();
 			itemIndex = selected.getSelectedIndex();
-
-			System.out.println(transfo.size());
-
-
 			if(selected.getSelectedItem().getClass() == new Translation(0,0).getClass()) {
 				if(TranslationModif.display(selected.getSelectedItem())) doModification(itemIndex, itemIndex + 1, TranslationModif.modification);
 			} 

@@ -13,8 +13,6 @@ import transforms.elementaires.Rotation;
 
 public class RotationParam {
 
-	static double X;
-	static double Y;
 	static boolean res = false;
 
 	public static boolean display() {
@@ -37,9 +35,10 @@ public class RotationParam {
 		valider.setOnAction(e -> {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
 				try {
-
+					double x =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordX.getText());
 					double angleDeg = Double.parseDouble(angle.getText());
-					Controller.transfo.add(new Rotation(angleDeg, X, Y));
+					Controller.transfo.add(new Rotation(angleDeg, x, y));
 					stage.close();
 					RotationParam.res = true;
 				}catch(NumberFormatException error) {

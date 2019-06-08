@@ -37,8 +37,10 @@ public class HomothetieParam {
 		valider.setOnAction(e -> {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
 				try {
+					double x =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordX.getText());
 					double setScale = Double.parseDouble(scale.getText());
-					Controller.transfo.add(new Homothetie(setScale, X, Y));
+					Controller.transfo.add(new Homothetie(setScale, x, y));
 					stage.close();
 					HomothetieParam.res = true;
 				}catch(NumberFormatException error) {

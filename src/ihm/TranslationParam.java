@@ -13,21 +13,8 @@ import transforms.elementaires.Translation;
 
 public class TranslationParam {
 
-	static double X;
-	static double Y;
 	static boolean res = false;
-	public static boolean invalidPoint(TextField input1, TextField input2) {
-
-		try {
-			X = Double.parseDouble(input1.getText());
-			Y = Double.parseDouble(input2.getText());
-			return true;
-		}catch(NumberFormatException e) {
-			return false;
-		}
-
-	}
-
+	
 	public static boolean display() {
 
 		Stage stage = new Stage();
@@ -47,7 +34,9 @@ public class TranslationParam {
 		valider.setOnAction(e -> {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
 				try {
-					Controller.transfo.add(new Translation(X, Y));
+					double x =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordX.getText());
+					Controller.transfo.add(new Translation(x, y));
 					stage.close();
 					TranslationParam.res = true;
 				}catch(NumberFormatException error) {

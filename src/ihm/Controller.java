@@ -43,7 +43,7 @@ public class Controller  {
 	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins;
 
 	@FXML
-	Label zoomLabel;
+	Label zoomLabel,labelMatriceC,labelMatriceA;
 
 	@FXML
 	Accordion accordeon;
@@ -52,7 +52,10 @@ public class Controller  {
 	TitledPane transfoList,matriceList;
 
 	@FXML
-	VBox vBoxDroite;
+	ListView matriceA,matriceC;
+	
+	@FXML
+	VBox vBoxDroite,vBoxMatrice;
 
 	public static Composition composition;
 	private List<Node> allNodes;
@@ -63,6 +66,7 @@ public class Controller  {
 	private Color couleur;
 	private static double zoom = 30.0;
 	private static GrilleAdaptable grille;
+	private static int nbTransfo = 0;
 
 	public void initialize() {
 		pane.prefHeight(320.0);
@@ -74,9 +78,8 @@ public class Controller  {
 		dragGrille();
 	}
 
-
 	public void doLancer(ActionEvent actionEvent) {
-		if(!transfo.isEmpty()) {
+		if(nbTransfo > 0) {
 			try {
 				boutonLancer.setDisable(true);
 				motif = composition.getStep(0);
@@ -108,6 +111,7 @@ public class Controller  {
 		display.add(true);
 		boutonLancer.setDisable(false);
 		composition.setZoom(30.0, 400.0, 342.5);
+		nbTransfo = 0;
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {
@@ -141,16 +145,17 @@ public class Controller  {
 		for (Transformation transfo : transfo) {
 			composition.add((Transformation) transfo.getTransform());
 			display.add(true);
+			nbTransfo++;
 		}
 		try {
 			allNodes = composition.draw(display);
 		} catch (LibraryException e) {
 			e.printStackTrace();
 		}
-
+		transfo.clear();
 		pane.getChildren().addAll(allNodes);
-		//matriceA.getItems().clear();
-		//matriceA.getItems().addAll(composition.getSequence());
+		matriceA.getItems().clear();
+		matriceA.getItems().addAll(composition.getSequence());
 	}
 
 	public void doZoomPlus(ActionEvent actionEvent) {

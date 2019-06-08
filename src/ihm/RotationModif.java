@@ -35,7 +35,7 @@ public class RotationModif {
 
 
 		valider.setOnAction(e -> {
-			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && doubleInt(coordX, coordY, angle)) {
 				try {
 					double x =Double.parseDouble(coordX.getText());
 					double y =Double.parseDouble(coordY.getText());

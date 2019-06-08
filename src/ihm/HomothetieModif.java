@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import transforms.elementaires.Homothetie;
 
-public class HomothetieParam {
+public class HomothetieModif {
 
 	static boolean res = false;
 
@@ -40,7 +40,7 @@ public class HomothetieParam {
 					double setScale = Double.parseDouble(scale.getText());
 					Controller.transfo.add(new Homothetie(setScale, x, y));
 					stage.close();
-					HomothetieParam.res = true;
+					HomothetieModif.res = true;
 				}catch(NumberFormatException error) {
 					System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
 				}
@@ -65,7 +65,7 @@ public class HomothetieParam {
 		stage.setScene(scene);
 		stage.showAndWait();
 
-		return HomothetieParam.res;
+		return HomothetieModif.res;
 	}
 
 	public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {

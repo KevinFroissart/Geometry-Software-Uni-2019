@@ -85,7 +85,7 @@ public class HomothetieModif {
 		boutons.getChildren().addAll(valider,retour);
 		boutons.setAlignment(Pos.CENTER);
 		
-		layout.getChildren().addAll(label, coordX, coordY, scale, valider, retour);
+		layout.getChildren().addAll(label, coordX, coordY, scale, boutons);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);

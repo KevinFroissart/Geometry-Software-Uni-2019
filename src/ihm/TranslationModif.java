@@ -82,7 +82,7 @@ public class TranslationModif {
 		boutons.getChildren().addAll(valider,retour);
 		boutons.setAlignment(Pos.CENTER);
 		
-		layout.getChildren().addAll(label, coordX, coordY, valider, retour);
+		layout.getChildren().addAll(label, coordX, coordY, boutons);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
@@ -90,7 +90,7 @@ public class TranslationModif {
 		stage.setTitle("Translation");
 		stage.getIcons().add(new Image("File:ressources/param.png"));
 		stage.setMinWidth(250);
-		stage.setMinHeight(150);
+		stage.setMinHeight(120);
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.showAndWait();

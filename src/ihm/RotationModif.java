@@ -85,7 +85,7 @@ public class RotationModif {
 		boutons.getChildren().addAll(valider,retour);
 		boutons.setAlignment(Pos.CENTER);
 		
-		layout.getChildren().addAll(label, coordX, coordY, angle, valider, retour);
+		layout.getChildren().addAll(label, coordX, coordY, angle, boutons);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);

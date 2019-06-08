@@ -26,7 +26,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import transforms.Composition;
 import transforms.LibraryException;
+import transforms.elementaires.Homothetie;
+import transforms.elementaires.Rotation;
 import transforms.elementaires.Transformation;
+import transforms.elementaires.Translation;
 import transforms.mobile.GrilleAdaptable;
 import transforms.mobile.Maison;
 import transforms.mobile.Motif;
@@ -66,7 +69,7 @@ public class Controller  {
 
 	@FXML
 	HBox hBoxBoutons;
-	
+
 	@FXML
 	Image btnImage;
 
@@ -99,10 +102,12 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
-		/*ImageView Iaide = new ImageView("File:ressources/aide.png");
+		ImageView Iaide = new ImageView("File:ressources/aide.png");
 		Iaide.fitHeightProperty().set(17);
 		Iaide.fitWidthProperty().set(15);
-		boutonAide.setGraphic(Iaide);*/
+		boutonAide.setGraphic(Iaide);
+		boutonAide.setPrefHeight(25);
+		Iaide.setPreserveRatio(true);
 		boutonMotif.isFocused();
 	}
 
@@ -206,7 +211,7 @@ public class Controller  {
 		if(zoom > 15) zoom -= zoomRatio;
 		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 	}
-	
+
 	public void zoom(ScrollEvent e) {
 		if(e.getDeltaY() > 0) {
 			doZoomPlus(null);
@@ -224,7 +229,16 @@ public class Controller  {
 
 	public void doModifier(ActionEvent actionEvent) {
 		if(!matriceA.getSelectionModel().isEmpty()) {
-			//if(matriceA.getSelectionModel().getSelectedItem().));
+			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Translation(0,0).getClass()) {
+				TranslationModif.display(matriceA.getSelectionModel().getSelectedItem());
+			}
+			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Rotation(0,0,0).getClass()) {
+				RotationModif.display(matriceA.getSelectionModel().getSelectedItem());
+			}
+			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Homothetie(0,0,0).getClass()) {
+				HomothetieModif.display(matriceA.getSelectionModel().getSelectedItem());
+			}
+
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
@@ -260,13 +274,13 @@ public class Controller  {
 			} else Erreur.popUp("Erreur", "Vous ne pouvez pas aller plus bas");
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
-	
+
 	public void doModif(int index, int add, int remove) {
 		//final ArrayList<Transformation> tmpTra = transfo;
 		final ArrayList<Boolean> tmpDis = display;
 		final ObservableList<Transformation> tmpMa = matriceA.getItems();
 		final ObservableList<Transformation> tmpCom = composition.getSequence();
-		
+
 		matriceA.getItems().add(index, tmpMa.get(add));
 		composition.getSequence().add(index, tmpCom.get(add));
 		display.add(index, tmpDis.get(add));
@@ -276,7 +290,7 @@ public class Controller  {
 		display.remove(remove);
 		//transfo.remove(remove);
 	}
-	
+
 	public void doAfficherAide() {
 		AfficherAide.popUp("test", "test");
 	}

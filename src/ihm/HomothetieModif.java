@@ -10,12 +10,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import transforms.elementaires.Homothetie;
+import transforms.elementaires.Transformation;
 
 public class HomothetieModif {
 
 	static boolean res = false;
 
-	public static boolean display() {
+	public static boolean display(Transformation transformation) {
 		Stage stage = new Stage();
 
 		Label label = new Label("Veuillez entrer les coordonées");

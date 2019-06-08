@@ -14,7 +14,8 @@ import transforms.elementaires.Translation;
 
 public class TranslationParam {
 
-	static boolean res = false;
+	public static boolean res = false;
+	public static double x,y;
 
 	public static boolean display() {
 
@@ -35,8 +36,6 @@ public class TranslationParam {
 		valider.setOnAction(e -> {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
 				try {
-					double x =Double.parseDouble(coordX.getText());
-					double y =Double.parseDouble(coordY.getText());
 					Controller.transfo.add(new Translation(x, y));
 					stage.close();
 					TranslationParam.res = true;
@@ -50,8 +49,6 @@ public class TranslationParam {
 			if(e.getCode().equals(KeyCode.ENTER)) {
 				if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
 					try {
-						double x =Double.parseDouble(coordX.getText());
-						double y =Double.parseDouble(coordY.getText());
 						Controller.transfo.add(new Translation(x, y));
 						stage.close();
 						TranslationParam.res = true;
@@ -82,8 +79,9 @@ public class TranslationParam {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setTitle("Translation");
 		stage.getIcons().add(new Image("File:ressources/param.png"));
-		stage.setMinWidth(350);
+		stage.setMinWidth(250);
 		stage.setMinHeight(150);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.showAndWait();
 
@@ -91,9 +89,20 @@ public class TranslationParam {
 	}
 
 	public static boolean doubleInt(TextField coordX, TextField coordY) {
+		try {
+			x = Double.parseDouble(coordX.getText());
+			y = Double.parseDouble(coordY.getText());
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
+
+	/*public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
-			if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) { res = true; }}
+			if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
+				if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
 		return res;
-	}
+	}*/
 }

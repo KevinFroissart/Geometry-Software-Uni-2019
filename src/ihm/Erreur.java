@@ -1,37 +1,46 @@
 package ihm;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Erreur {
 
 	public static void popUp(String titre, String msg) {
-		Stage error = new Stage();
-		BorderPane root = new BorderPane();
+		Stage layout = new Stage();
+		VBox root = new VBox();
 		Label msgLabel = new Label(msg);
 		Button ok = new Button("OK");
+		
 		ok.setOnMouseClicked(e -> {
-			error.close();
+			layout.close();
 		});
-		BorderPane.setAlignment(msgLabel, Pos.CENTER);
-		BorderPane.setAlignment(ok, Pos.CENTER);
-		root.setCenter(msgLabel);
-		root.setBottom(ok);
-
-		Scene errorScene = new Scene(root);
-		error.setScene(errorScene);
-		error.initModality(Modality.APPLICATION_MODAL);
-		error.setHeight(100);
-		error.setWidth(400);
-		error.setTitle(titre);
-		error.getIcons().add(new Image("File:ressources/error.png"));
-		error.setResizable(false);
-		error.show();
+		
+		ok.setOnKeyPressed(e -> { 
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				RotationParam.res = false;
+				layout.close();
+			}
+		});
+		
+		root.getChildren().addAll(msgLabel, ok);
+		root.setAlignment(Pos.CENTER);
+		Scene stageScene = new Scene(root);
+		VBox.setMargin(ok, new Insets(10,0,0,0));
+		layout.setScene(stageScene);
+		layout.initModality(Modality.APPLICATION_MODAL);
+		layout.setHeight(100);
+		layout.setWidth(400);
+		layout.setTitle(titre);
+		layout.getIcons().add(new Image("File:ressources/error.png"));
+		layout.setResizable(false);
+		layout.show();
 	}
 }

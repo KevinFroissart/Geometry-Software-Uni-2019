@@ -120,6 +120,10 @@ public class Controller  {
 				boutonRotation.setDisable(true);
 				boutonHomothetie.setDisable(true);
 				boutonLancer.setDisable(true);
+				boutonModifier.setDisable(true);
+				boutonSupprimer.setDisable(true);
+				boutonBas.setDisable(true);
+				boutonHaut.setDisable(true);
 				motif = composition.getStep(0);
 				motif.setStroke(Color.BLUE);
 				pane.getChildren().add(motif.toGroup());
@@ -135,6 +139,11 @@ public class Controller  {
 					boutonTranslation.setDisable(false);
 					boutonRotation.setDisable(false);
 					boutonHomothetie.setDisable(false);
+					boutonModifier.setDisable(false);
+					boutonSupprimer.setDisable(false);
+					boutonBas.setDisable(false);
+					boutonHaut.setDisable(false);
+					pane.getChildren().remove(motif.toGroup());
 				});    
 			} catch (LibraryException e) {
 				e.printStackTrace();
@@ -251,6 +260,7 @@ public class Controller  {
 			matriceA.getItems().remove(index);
 			composition.getSequence().remove(index);
 			display.remove(index);
+			//transfo.remove(0);
 			pane.getChildren().removeAll(allNodes);
 			doTransformation();
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");

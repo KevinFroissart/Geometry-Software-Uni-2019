@@ -24,15 +24,15 @@ public static void popUp() {
 		Label aide = new Label();
 		aide.setText("Guide d'utilisation :\n\n"
 				+ "- Pour commencer une composition, il faut ajouter un motif grâce au bouton prévu à cet effet.\n\n"
-				+ "- Vous pouvez ajouter une ou plusieurs transformations qui apraîtrons dans l'ordre dans la liste "
-				+ "  de droite.\n\n"
+				+ "- Vous pouvez ajouter une ou plusieurs transformations qui apraîtrons dans l'ordre dans la liste"
+				+ " de droite.\n\n"
 				+ "- Vous pouvez également les modifier en cliquant sur le bouton du même nom, ou bien les supprimer \n"
 				+ "  ou encore changer leur ordre d'animation à l'aide des flèches 'haut' et 'bas'. \n\n"
 				+ "- Pour animer votre composition cliquez sur 'Lancer'. \n\n"
-				+ "- Le bouton 'Reset' permet de réinitialiser cotre composition.\n\n"
+				+ "- Le bouton 'Reset' permet de réinitialiser votre composition.\n\n"
 				+ "- Vous avez la possibilité de vous déplacer sur la grille avec un drag de la souris (clic gauche)\n"
-				+ "  et de zoomer/dézoomer "
-				+ "  grâce à la molette ou des boutons en bas à gauche de la fenêtre");
+				+ "  et de zoomer/dézoomer"
+				+ " grâce à la molette ou aux boutons en bas à gauche de la fenêtre");
 		
 		
 		

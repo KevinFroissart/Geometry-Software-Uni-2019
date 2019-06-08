@@ -16,6 +16,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -45,7 +47,7 @@ public class Controller  {
 	ToolBar toolBarHaut,toolBarBas;
 
 	@FXML
-	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins,boutonModifier,boutonSupprimer,boutonHaut,boutonBas;
+	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins,boutonModifier,boutonSupprimer,boutonHaut,boutonBas,boutonAide;
 
 	@FXML
 	Label zoomLabel,labelMatrice;
@@ -60,10 +62,13 @@ public class Controller  {
 	ListView<Transformation> matriceA;
 
 	@FXML
-	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo,vBoxBoutons;
+	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo,vBoxBouton;
 
 	@FXML
 	HBox hBoxBoutons;
+	
+	@FXML
+	Image btnImage;
 
 	public static Composition composition;
 	private List<Node> allNodes;
@@ -94,6 +99,10 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
+		ImageView Iaide = new ImageView("File:ressources/aide.png");
+		Iaide.fitHeightProperty().set(17);
+		Iaide.fitWidthProperty().set(15);
+		boutonAide.setGraphic(Iaide);
 		boutonMotif.isFocused();
 	}
 
@@ -266,5 +275,9 @@ public class Controller  {
 		composition.getSequence().remove(remove);
 		display.remove(remove);
 		//transfo.remove(remove);
+	}
+	
+	public void doAfficherAide() {
+		AfficherAide.popUp("test", "test");
 	}
 }

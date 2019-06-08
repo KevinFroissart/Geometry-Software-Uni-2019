@@ -8,50 +8,82 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.Controller">
-   <center>
-      <Pane fx:id="pane" onMouseDragged="#dragGrille" prefHeight="320.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
-      <ToolBar fx:id="toolBarHaut" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <Button fx:id="boutonLancer" mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
-            <Button fx:id="boutonReset" mnemonicParsing="false" onAction="#doReset" text="Reset" />
-            <Button fx:id="boutonMotif" mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
-            <Button fx:id="boutonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
-            <Button fx:id="boutonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
-            <Button fx:id="boutonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
-        </items>
-      </ToolBar>
-   </top>
-   <bottom>
-      <ToolBar fx:id="toolBarBas" prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-        <items>
-            <Label fx:id="zoomLabel" prefHeight="17.0" prefWidth="38.0" text="Zoom" />
-          <Button fx:id="boutonPlus" mnemonicParsing="false" onAction="#doZoomPlus" text="+" />
-            <Button fx:id="boutonMoins" mnemonicParsing="false" onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
-        </items>
-      </ToolBar>
-   </bottom>
-   <right>
-      <VBox fx:id="vBoxDroite" prefHeight="554.0" prefWidth="284.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="labelMatrice" prefHeight="21.0" prefWidth="284.0" text="Liste des transformations" />
-            <ListView fx:id="matriceA" prefHeight="235.0" prefWidth="284.0" />
-            <HBox fx:id="hBoxBoutons" prefHeight="35.0" prefWidth="284.0">
-               <children>
-                  <Button fx:id="boutonModifier" mnemonicParsing="false" onAction="#doModifier" prefHeight="50.0" prefWidth="137.0" text="Modifier" />
-                  <Button fx:id="boutonSupprimer" mnemonicParsing="false" onAction="#doSupprimer" prefHeight="50.0" prefWidth="126.0" text="Supprimer" />
-                  <VBox fx:id="vBoxBouton" prefHeight="50.0" prefWidth="30.0">
-                     <children>
-                        <Button fx:id="boutonHaut" mnemonicParsing="false" onAction="#doMonter" prefHeight="12.0" prefWidth="27.0" text="▲" />
-                        <Button fx:id="boutonBas" mnemonicParsing="false" onAction="#doDescendre" text="▼" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </right>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="635.0" prefWidth="1081.0"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.Controller">
+	<center>
+		<Pane fx:id="pane" onMouseDragged="#dragGrille"
+			prefHeight="320.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
+	</center>
+	<top>
+		<ToolBar fx:id="toolBarHaut" prefHeight="40.0"
+			prefWidth="200.0" BorderPane.alignment="CENTER">
+			<items>
+				<Button fx:id="boutonLancer" mnemonicParsing="false" onAction="#doLancer" text="Lancer" />
+				<Button fx:id="boutonReset" mnemonicParsing="false" onAction="#doReset" text="Reset" />
+				<Button fx:id="boutonMotif" mnemonicParsing="false" onAction="#doAjouterMotif" text="Ajouter motif" />
+				<Button fx:id="boutonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
+				<Button fx:id="boutonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
+				<Button fx:id="boutonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
+				<fx:define>
+					<Image fx:id="btnImage" url="../../ressources/aide.png" />
+				</fx:define>
+				<Button fx:id="boutonAide" mnemonicParsing="false" onAction="#doAfficherAide" >
+				 <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="ressources/aide.png" />
+                           </image>
+                        </ImageView>
+    			</Button> 
+			</items>
+		</ToolBar>
+	</top>
+	<bottom>
+		<ToolBar fx:id="toolBarBas" prefHeight="41.0"
+			prefWidth="600.0" BorderPane.alignment="CENTER">
+			<items>
+				<Label fx:id="zoomLabel" prefHeight="17.0" prefWidth="38.0"
+					text="Zoom" />
+				<Button fx:id="boutonPlus" mnemonicParsing="false"
+					onAction="#doZoomPlus" text="+" />
+				<Button fx:id="boutonMoins" mnemonicParsing="false"
+					onAction="#doZoomMoins" prefHeight="25.0" prefWidth="27.0" text="-" />
+			</items>
+		</ToolBar>
+	</bottom>
+	<right>
+		<VBox fx:id="vBoxDroite" prefHeight="554.0" prefWidth="284.0"
+			BorderPane.alignment="CENTER">
+			<children>
+				<Label fx:id="labelMatrice" prefHeight="21.0"
+					prefWidth="284.0" text="Liste des transformations" />
+				<ListView fx:id="matriceA" prefHeight="235.0"
+					prefWidth="284.0" />
+				<HBox fx:id="hBoxBoutons" prefHeight="35.0" prefWidth="284.0">
+					<children>
+						<Button fx:id="boutonModifier" mnemonicParsing="false"
+							onAction="#doModifier" prefHeight="50.0" prefWidth="137.0"
+							text="Modifier" />
+						<Button fx:id="boutonSupprimer" mnemonicParsing="false"
+							onAction="#doSupprimer" prefHeight="50.0" prefWidth="126.0"
+							text="Supprimer" />
+						<VBox fx:id="vBoxBouton" prefHeight="50.0" prefWidth="30.0">
+							<children>
+								<Button fx:id="boutonHaut" mnemonicParsing="false"
+									onAction="#doMonter" prefHeight="12.0" prefWidth="27.0"
+									text="▲" />
+								<Button fx:id="boutonBas" mnemonicParsing="false"
+									onAction="#doDescendre" text="▼" />
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</right>
 </BorderPane>

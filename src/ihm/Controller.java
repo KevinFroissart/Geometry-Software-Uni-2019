@@ -193,7 +193,7 @@ public class Controller  {
 	}
 
 	public void doSupprimer(ActionEvent actionEvent) {
-		if(!matriceA.getSelectionModel().getSelectedItem().equals(null)) {
+		if(!matriceA.getSelectionModel().isEmpty()) {
 			int index = matriceA.getSelectionModel().getSelectedIndex();
 			matriceA.getItems().remove(index);
 			composition.getSequence().remove(index);

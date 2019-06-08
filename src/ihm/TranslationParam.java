@@ -35,7 +35,7 @@ public class TranslationParam {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
 				try {
 					double x =Double.parseDouble(coordX.getText());
-					double y =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordY.getText());
 					Controller.transfo.add(new Translation(x, y));
 					stage.close();
 					TranslationParam.res = true;

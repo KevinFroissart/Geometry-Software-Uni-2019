@@ -38,7 +38,7 @@ public class HomothetieParam {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
 				try {
 					double x =Double.parseDouble(coordX.getText());
-					double y =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordY.getText());
 					double setScale = Double.parseDouble(scale.getText());
 					Controller.transfo.add(new Homothetie(setScale, x, y));
 					stage.close();

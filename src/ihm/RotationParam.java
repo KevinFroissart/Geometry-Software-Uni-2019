@@ -36,7 +36,7 @@ public class RotationParam {
 			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
 				try {
 					double x =Double.parseDouble(coordX.getText());
-					double y =Double.parseDouble(coordX.getText());
+					double y =Double.parseDouble(coordY.getText());
 					double angleDeg = Double.parseDouble(angle.getText());
 					Controller.transfo.add(new Rotation(angleDeg, x, y));
 					stage.close();

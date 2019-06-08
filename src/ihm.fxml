@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -38,22 +37,14 @@
    <right>
       <VBox fx:id="vBoxDroite" prefHeight="554.0" prefWidth="284.0" BorderPane.alignment="CENTER">
          <children>
-            <Accordion fx:id="accordeon" prefHeight="569.0" prefWidth="284.0">
-              <panes>
-                <TitledPane fx:id="transfoList" animated="false" prefHeight="78.0" prefWidth="169.0" text="Liste des transformations " />
-                <TitledPane fx:id="matriceList" animated="false" prefHeight="428.0" prefWidth="284.0" text="Matrices">
-                     <content>
-                        <VBox fx:id="vBoxMatrice" prefHeight="439.0" prefWidth="282.0">
-                           <children>
-                              <Label fx:id="labelMatriceC" text="Matrice A" />
-                              <ListView fx:id="matriceA" prefHeight="224.0" prefWidth="262.0" />
-                              <Label fx:id="labelMatriceC" text="Matrice C" />
-                              <ListView fx:id="matriceC" prefHeight="233.0" prefWidth="262.0" />
-                           </children>
-                        </VBox>
-                     </content></TitledPane>
-              </panes>
-            </Accordion>
+            <Label fx:id="labelMatrice" prefHeight="21.0" prefWidth="284.0" text="Liste des transformaitons" />
+            <ListView fx:id="matriceA" prefHeight="200.0" prefWidth="200.0" />
+            <HBox prefHeight="35.0" prefWidth="284.0">
+               <children>
+                  <Button fx:id="boutonModifier" mnemonicParsing="false" onAction="#doModifier" prefHeight="34.0" prefWidth="145.0" text="Modifier" />
+                  <Button fx:id="boutonSupprimer" mnemonicParsing="false" onAction="#doSupprimer" prefHeight="34.0" prefWidth="145.0" text="Supprimer" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </right>

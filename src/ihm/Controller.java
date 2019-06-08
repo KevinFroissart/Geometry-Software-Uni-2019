@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javafx.animation.Timeline;
 import javafx.beans.binding.SetBinding;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -45,7 +47,7 @@ public class Controller  {
 	ToolBar toolBarHaut,toolBarBas;
 
 	@FXML
-	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins,boutonModifier,boutonSupprimer;
+	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins,boutonModifier,boutonSupprimer,boutonHaut,boutonBas;
 
 	@FXML
 	Label zoomLabel,labelMatrice;
@@ -57,10 +59,13 @@ public class Controller  {
 	TitledPane transfoList,matriceList;
 
 	@FXML
-	ListView matriceA;
+	ListView<Transformation> matriceA;
 
 	@FXML
-	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo;
+	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo,vBoxBoutons;
+
+	@FXML
+	HBox hBoxBoutons;
 
 	public static Composition composition;
 	private List<Node> allNodes;
@@ -83,6 +88,7 @@ public class Controller  {
 		composition.setZoom(zoom, 400.0, 342.5);
 		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
+		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
 	}
 
@@ -117,7 +123,6 @@ public class Controller  {
 		transfo.clear();
 		motifList.clear();
 		matriceA.getItems().clear();
-		vBoxListTransfo.getChildren().clear();
 		display.clear();
 		display.add(true);
 		boutonLancer.setDisable(false);
@@ -155,6 +160,7 @@ public class Controller  {
 	}	
 
 	public void doTransformation() {
+		pane.getChildren().removeAll(allNodes);
 		for (Transformation transfo : transfo) {
 			composition.add((Transformation) transfo.getTransform());
 			display.add(true);
@@ -189,7 +195,9 @@ public class Controller  {
 	}
 
 	public void doModifier(ActionEvent actionEvent) {
+		if(!matriceA.getSelectionModel().isEmpty()) {
 
+		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
 	public void doSupprimer(ActionEvent actionEvent) {
@@ -198,7 +206,46 @@ public class Controller  {
 			matriceA.getItems().remove(index);
 			composition.getSequence().remove(index);
 			display.remove(index);
+			pane.getChildren().removeAll(allNodes);
 			doTransformation();
-		}
+		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
+	}
+
+	public void doMonter(ActionEvent actionEvent) {
+		if(!matriceA.getSelectionModel().isEmpty()) {
+			if(matriceA.getSelectionModel().getSelectedIndex() != 0) {
+				int index = matriceA.getSelectionModel().getSelectedIndex();
+				pane.getChildren().removeAll(allNodes);
+				doModif(index + 1, index - 1, index - 1);
+				doTransformation();
+			}
+		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
+	}
+
+	public void doDescendre(ActionEvent actionEvent) {
+		if(!matriceA.getSelectionModel().isEmpty()) {
+			if(matriceA.getSelectionModel().getSelectedIndex() + 1 != nbTransfo) {
+				int index = matriceA.getSelectionModel().getSelectedIndex();
+				pane.getChildren().removeAll(allNodes);
+				doModif(index, index + 1, index + 2);
+				doTransformation();
+			}
+		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
+	}
+	
+	public void doModif(int index, int add, int remove) {
+		final ArrayList<Transformation> tmpTra = transfo;
+		final ArrayList<Boolean> tmpDis = display;
+		final ObservableList<Transformation> tmpMa = matriceA.getItems();
+		final ObservableList<Transformation> tmpCom = composition.getSequence();
+		
+		matriceA.getItems().add(index, tmpMa.get(add));
+		composition.getSequence().add(index, tmpCom.get(add));
+		display.add(index, tmpDis.get(add));
+		//transfo.add(index, tmpTra.get(add));
+		matriceA.getItems().remove(remove);
+		composition.getSequence().remove(remove);
+		display.remove(remove);
+		//transfo.remove(remove);
 	}
 }

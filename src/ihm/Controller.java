@@ -2,20 +2,22 @@ package ihm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javafx.animation.Timeline;
+import javafx.beans.binding.SetBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -37,13 +39,16 @@ public class Controller  {
 	Pane pane;
 
 	@FXML
+	ScrollPane scrollPaneTransfo;
+
+	@FXML
 	ToolBar toolBarHaut,toolBarBas;
 
 	@FXML
-	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins;
+	Button boutonLancer,boutonReset,boutonMotif,boutonTranslation,boutonRotation,boutonHomothetie,boutonPlus,boutonMoins,boutonModifier,boutonSupprimer;
 
 	@FXML
-	Label zoomLabel,labelMatriceC,labelMatriceA;
+	Label zoomLabel,labelMatrice;
 
 	@FXML
 	Accordion accordeon;
@@ -52,10 +57,10 @@ public class Controller  {
 	TitledPane transfoList,matriceList;
 
 	@FXML
-	ListView matriceA,matriceC;
-	
+	ListView matriceA;
+
 	@FXML
-	VBox vBoxDroite,vBoxMatrice;
+	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo;
 
 	public static Composition composition;
 	private List<Node> allNodes;
@@ -66,7 +71,10 @@ public class Controller  {
 	private Color couleur;
 	private static double zoom = 30.0;
 	private static GrilleAdaptable grille;
-	private static int nbTransfo = 0;
+	public static int nbTransfo = 0;
+	private static Button editer;
+	private static Button supprimer;
+	private static Transformation selection;
 
 	public void initialize() {
 		pane.prefHeight(320.0);
@@ -77,6 +85,7 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		dragGrille();
 	}
+
 
 	public void doLancer(ActionEvent actionEvent) {
 		if(nbTransfo > 0) {
@@ -107,6 +116,8 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		transfo.clear();
 		motifList.clear();
+		matriceA.getItems().clear();
+		vBoxListTransfo.getChildren().clear();
 		display.clear();
 		display.add(true);
 		boutonLancer.setDisable(false);
@@ -115,6 +126,8 @@ public class Controller  {
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {
+		//editer.setGraphic(new ImageView("File:ressources/editer.png"));
+		//supprimer.setGraphic(new ImageView("File:ressources/delete.png"));
 		Motif maison = new Maison(composition);
 		motifList.add((Maison) maison);
 		composition.setMotif(maison);
@@ -173,5 +186,19 @@ public class Controller  {
 			composition.offsetXProperty().set(e.getX());
 			composition.offsetYProperty().set(e.getY());
 		});
+	}
+
+	public void doModifier(ActionEvent actionEvent) {
+
+	}
+
+	public void doSupprimer(ActionEvent actionEvent) {
+		if(!matriceA.getSelectionModel().getSelectedItem().equals(null)) {
+			int index = matriceA.getSelectionModel().getSelectedIndex();
+			matriceA.getItems().remove(index);
+			composition.getSequence().remove(index);
+			display.remove(index);
+			doTransformation();
+		}
 	}
 }

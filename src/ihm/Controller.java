@@ -99,10 +99,10 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
-		ImageView Iaide = new ImageView("File:ressources/aide.png");
+		/*ImageView Iaide = new ImageView("File:ressources/aide.png");
 		Iaide.fitHeightProperty().set(17);
 		Iaide.fitWidthProperty().set(15);
-		boutonAide.setGraphic(Iaide);
+		boutonAide.setGraphic(Iaide);*/
 		boutonMotif.isFocused();
 	}
 

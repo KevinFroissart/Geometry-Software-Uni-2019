@@ -29,16 +29,7 @@
 				<Button fx:id="boutonTranslation" mnemonicParsing="false" onAction="#doTranslation" text="Translation" />
 				<Button fx:id="boutonRotation" mnemonicParsing="false" onAction="#doRotation" text="Rotation" />
 				<Button fx:id="boutonHomothetie" mnemonicParsing="false" onAction="#doHomothetie" text="Homothétie" />
-				<fx:define>
-					<Image fx:id="btnImage" url="../../ressources/aide.png" />
-				</fx:define>
 				<Button fx:id="boutonAide" mnemonicParsing="false" onAction="#doAfficherAide" >
-				 <graphic>
-                        <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="ressources/aide.png" />
-                           </image>
-                        </ImageView>
     			</Button> 
 			</items>
 		</ToolBar>

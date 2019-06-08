@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -79,6 +80,11 @@ public class RotationModif {
 		});
 
 		VBox layout = new VBox();
+		HBox boutons = new HBox();
+
+		boutons.getChildren().addAll(valider,retour);
+		boutons.setAlignment(Pos.CENTER);
+		
 		layout.getChildren().addAll(label, coordX, coordY, angle, valider, retour);
 		layout.setAlignment(Pos.CENTER);
 

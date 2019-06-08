@@ -24,6 +24,7 @@ import javafx.scene.paint.Color;
 import transforms.Composition;
 import transforms.LibraryException;
 import transforms.elementaires.Transformation;
+import transforms.elementaires.Translation;
 import transforms.mobile.GrilleAdaptable;
 import transforms.mobile.Maison;
 import transforms.mobile.Motif;
@@ -197,7 +198,7 @@ public class Controller  {
 
 	public void doModifier(ActionEvent actionEvent) {
 		if(!matriceA.getSelectionModel().isEmpty()) {
-
+			if(matriceA.getSelectionModel().getSelectedItem().IDENTITE.equals(new Translation(0,0)));
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 

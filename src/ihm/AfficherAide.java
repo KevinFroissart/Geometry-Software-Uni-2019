@@ -1,55 +1,48 @@
 package ihm;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AfficherAide {
 		
-public static void popUp(String title, String message) {
+public static void popUp() {
 		
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle(title);
+		window.setTitle("Aide");
+		window.getIcons().add(new Image("File:ressources/aide.png"));
 		window.setMinWidth(350);
 		window.setMinHeight(150);
 		
-		Label label = new Label();
-		label.setText(message);
+		Label aide = new Label();
+		aide.setText("Guide d'utilisation :\n\n"
+				+ "- Pour commencer une composition, il faut ajouter un motif grâce au bouton prévu à cet effet.\n\n"
+				+ "- Vous pouvez ajouter une ou plusieurs transformations qui apraîtrons dans l'ordre dans la liste "
+				+ "  de droite.\n\n"
+				+ "- Vous pouvez également les modifier en cliquant sur le bouton du même nom, ou bien les supprimer \n"
+				+ "  ou encore changer leur ordre d'animation à l'aide des flèches 'haut' et 'bas'. \n\n"
+				+ "- Pour animer votre composition cliquez sur 'Lancer'. \n\n"
+				+ "- Le bouton 'Reset' permet de réinitialiser cotre composition.\n\n"
+				+ "- Vous avez la possibilité de vous déplacer sur la grille avec un drag de la souris (clic gauche)\n"
+				+ "  et de zoomer/dézoomer "
+				+ "  grâce à la molette ou des boutons en bas à gauche de la fenêtre");
 		
-		Label aideTransformations = new Label();
-		aideTransformations.setText("Transformations : - Permet d'ajouter une ou plusieurs transformations à effectuer sur la figure actuellement selectionné.");
 		
-		Label aideFigures = new Label();
-		aideFigures.setText("Créer une figure : - Possibilité de créer une figure en ajoutant des points à l'aide de la souris en cliquant sur la grille.");
 		
-		Label aideZoom = new Label();
-		aideZoom.setText("Zoom : - Permet de zoomer/dézoomer la grille.");
-		
-		Label aideAfficher = new Label();
-		aideAfficher.setText("Afficher : - Permet d'afficher sur la grille la figure actuellement selectionné ainsi que les différentes transformations qui lui sont actuellement associées.");
-		
-		Label aideAnimer = new Label();
-		aideAnimer.setText("Animer : - Permet d'animer la figure qui effectue les différentes transformations qui lui sont associées.");
-		
-		Label aideReset = new Label();
-		aideReset.setText("Réinitialiser : - Permet de rétablir la figure par défaut (Maison avec porte) et d'effacer toutes les transformations actuellement associées à la figure.");
-		
-		Label aideMatrices = new Label();
-		aideMatrices.setText("Matrices : - Permet d'afficher les matrices associées aux transformations voulues (de la transformation ? à ?)");
-		
-		Label aideColor = new Label();
-		aideColor.setText("Couleur des transformations / Couleur des animations : - Permet de définir la couleur d'affichage des transformations / la couleur d'affichage des animations associées aux transformations");
-		
-		Button closeButton = new Button("Fermer l'aide");
-		closeButton.setOnAction(e -> window.close());
+		Button fermer = new Button("Fermer");
+		fermer.setOnAction(e -> window.close());
 		
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(label, aideFigures, aideColor, aideAfficher, aideAnimer, aideTransformations, aideMatrices, aideZoom, aideReset, closeButton);
+		layout.setPadding(new Insets(15,50,20,50));
+		VBox.setMargin(aide, new Insets(10,10,10,10));
+		layout.getChildren().addAll(aide, fermer);
 		layout.setAlignment(Pos.CENTER);
 		
 		Scene scene = new Scene(layout);

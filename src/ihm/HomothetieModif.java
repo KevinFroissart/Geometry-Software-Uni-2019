@@ -15,6 +15,7 @@ import transforms.elementaires.Transformation;
 public class HomothetieModif {
 
 	static boolean res = false;
+	public static Transformation modification;
 
 	public static boolean display(Transformation transformation) {
 		Stage stage = new Stage();
@@ -39,7 +40,8 @@ public class HomothetieModif {
 					double x =Double.parseDouble(coordX.getText());
 					double y =Double.parseDouble(coordY.getText());
 					double setScale = Double.parseDouble(scale.getText());
-					Controller.transfo.add(new Homothetie(setScale, x, y));
+					
+					modification = new Homothetie(setScale, x, y);
 					stage.close();
 					HomothetieModif.res = true;
 				}catch(NumberFormatException error) {

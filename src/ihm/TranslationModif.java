@@ -9,12 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import transforms.elementaires.Homothetie;
 import transforms.elementaires.Transformation;
+import transforms.elementaires.Translation;
 
 public class TranslationModif {
 
 	static boolean res = false;
+	public static Transformation modification;
 
 	public static boolean display(Transformation transformation) {
 		Stage stage = new Stage();
@@ -26,20 +27,17 @@ public class TranslationModif {
 
 		TextField coordX = new TextField();
 		TextField coordY = new TextField();
-		TextField scale = new TextField();
 
 		coordX.setPromptText("Valeur de X :");
 		coordY.setPromptText("Valeur de Y :");
-		scale.setPromptText("Valeur du facteur :");
 
 
 		valider.setOnAction(e -> {
-			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY)) {
 				try {
 					double x =Double.parseDouble(coordX.getText());
 					double y =Double.parseDouble(coordY.getText());
-					double setScale = Double.parseDouble(scale.getText());
-					Controller.transfo.add(new Homothetie(setScale, x, y));
+					modification = new Translation(x, y);
 					stage.close();
 					TranslationModif.res = true;
 				}catch(NumberFormatException error) {
@@ -54,26 +52,25 @@ public class TranslationModif {
 		});
 
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label, coordX, coordY, scale, valider, retour);
+		layout.getChildren().addAll(label, coordX, coordY, valider, retour);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("Homothétie");
+		stage.setTitle("Translation");
 		stage.getIcons().add(new Image("File:ressources/param.png"));
 		stage.setMinWidth(350);
 		stage.setMinHeight(150);
 		stage.setScene(scene);
 		stage.showAndWait();
-
-		return TranslationModif.res;
+		
+		return res;
 	}
 
-	public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {
+	public static boolean doubleInt(TextField coordX, TextField coordY) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
-		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
-		if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
+		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) { res = true; }}
 		return res;
 	}
 }

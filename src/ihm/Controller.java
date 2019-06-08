@@ -13,6 +13,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
@@ -85,6 +86,7 @@ public class Controller  {
 	private static double zoomRatio;
 	private static GrilleAdaptable grille;
 	public static int nbTransfo = 0;
+	public static int itemIndex;
 	//private static Transformation selection;
 
 	public void initialize() {
@@ -102,7 +104,7 @@ public class Controller  {
 		pane.getChildren().add(composition.getGrille(pane));
 		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
-		ImageView Iaide = new ImageView("File:ressources/aide.png");
+		ImageView Iaide = new ImageView("File:ressources/aide_petit.png");
 		Iaide.fitHeightProperty().set(17);
 		Iaide.fitWidthProperty().set(15);
 		boutonAide.setGraphic(Iaide);
@@ -229,16 +231,21 @@ public class Controller  {
 
 	public void doModifier(ActionEvent actionEvent) {
 		if(!matriceA.getSelectionModel().isEmpty()) {
-			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Translation(0,0).getClass()) {
-				TranslationModif.display(matriceA.getSelectionModel().getSelectedItem());
-			}
-			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Rotation(0,0,0).getClass()) {
-				RotationModif.display(matriceA.getSelectionModel().getSelectedItem());
-			}
-			if(matriceA.getSelectionModel().getSelectedItem().getClass() == new Homothetie(0,0,0).getClass()) {
-				HomothetieModif.display(matriceA.getSelectionModel().getSelectedItem());
-			}
+			MultipleSelectionModel<Transformation> selected = matriceA.getSelectionModel();
+			itemIndex = selected.getSelectedIndex();
 
+			System.out.println(transfo.size());
+
+
+			if(selected.getSelectedItem().getClass() == new Translation(0,0).getClass()) {
+				if(TranslationModif.display(selected.getSelectedItem())) doModification(itemIndex, itemIndex + 1, TranslationModif.modification);
+			} 
+			else if(selected.getSelectedItem().getClass() == new Rotation(0,0,0).getClass()) {
+				if(RotationModif.display(selected.getSelectedItem())) doModification(itemIndex, itemIndex + 1, RotationModif.modification);
+			} 
+			else  if(selected.getSelectedItem().getClass() == new Homothetie(0,0,0).getClass()) {
+				if(HomothetieModif.display(selected.getSelectedItem())) doModification(itemIndex, itemIndex + 1, HomothetieModif.modification);
+			}
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
@@ -258,7 +265,7 @@ public class Controller  {
 			if(matriceA.getSelectionModel().getSelectedIndex() != 0) {
 				int index = matriceA.getSelectionModel().getSelectedIndex();
 				pane.getChildren().removeAll(allNodes);
-				doModif(index + 1, index - 1, index - 1);
+				doSwitch(index + 1, index - 1, index - 1);
 				doTransformation();
 			} else Erreur.popUp("Erreur", "Vous ne pouvez pas aller plus haut");
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
@@ -269,14 +276,13 @@ public class Controller  {
 			if(matriceA.getSelectionModel().getSelectedIndex() + 1 != nbTransfo) {
 				int index = matriceA.getSelectionModel().getSelectedIndex();
 				pane.getChildren().removeAll(allNodes);
-				doModif(index, index + 1, index + 2);
+				doSwitch(index, index + 1, index + 2);
 				doTransformation();
 			} else Erreur.popUp("Erreur", "Vous ne pouvez pas aller plus bas");
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
-	public void doModif(int index, int add, int remove) {
-		//final ArrayList<Transformation> tmpTra = transfo;
+	public void doSwitch(int index, int add, int remove) {
 		final ArrayList<Boolean> tmpDis = display;
 		final ObservableList<Transformation> tmpMa = matriceA.getItems();
 		final ObservableList<Transformation> tmpCom = composition.getSequence();
@@ -284,14 +290,23 @@ public class Controller  {
 		matriceA.getItems().add(index, tmpMa.get(add));
 		composition.getSequence().add(index, tmpCom.get(add));
 		display.add(index, tmpDis.get(add));
-		//transfo.add(index, tmpTra.get(add));
 		matriceA.getItems().remove(remove);
 		composition.getSequence().remove(remove);
 		display.remove(remove);
-		//transfo.remove(remove);
+	}
+
+	public void doModification(int add, int remove, Transformation tranformation) {
+		pane.getChildren().removeAll(allNodes);
+		transfo.add(tranformation);
+		matriceA.getItems().add(add, tranformation);
+		composition.getSequence().add(add, tranformation);
+		matriceA.getItems().remove(remove);
+		composition.getSequence().remove(remove);
+		transfo.remove(0);
+		doTransformation();
 	}
 
 	public void doAfficherAide() {
-		AfficherAide.popUp("test", "test");
+		AfficherAide.popUp();
 	}
 }

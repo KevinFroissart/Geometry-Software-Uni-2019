@@ -9,12 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import transforms.elementaires.Homothetie;
+import transforms.elementaires.Rotation;
 import transforms.elementaires.Transformation;
 
 public class RotationModif {
 
 	static boolean res = false;
+	public static Transformation modification;
 
 	public static boolean display(Transformation transformation) {
 		Stage stage = new Stage();
@@ -26,20 +27,20 @@ public class RotationModif {
 
 		TextField coordX = new TextField();
 		TextField coordY = new TextField();
-		TextField scale = new TextField();
+		TextField angle = new TextField();
 
 		coordX.setPromptText("Valeur de X :");
 		coordY.setPromptText("Valeur de Y :");
-		scale.setPromptText("Valeur du facteur :");
+		angle.setPromptText("Valeur de l'angle :");
 
 
 		valider.setOnAction(e -> {
-			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
+			if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
 				try {
 					double x =Double.parseDouble(coordX.getText());
 					double y =Double.parseDouble(coordY.getText());
-					double setScale = Double.parseDouble(scale.getText());
-					Controller.transfo.add(new Homothetie(setScale, x, y));
+					double angleDeg = Double.parseDouble(angle.getText());
+					modification = new Rotation(angleDeg, x, y);
 					stage.close();
 					RotationModif.res = true;
 				}catch(NumberFormatException error) {
@@ -54,7 +55,7 @@ public class RotationModif {
 		});
 
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label, coordX, coordY, scale, valider, retour);
+		layout.getChildren().addAll(label, coordX, coordY, angle, valider, retour);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
@@ -69,11 +70,11 @@ public class RotationModif {
 		return RotationModif.res;
 	}
 
-	public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {
+	public static boolean doubleInt(TextField coordX, TextField coordY, TextField angle) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
 		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
-		if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
+		if(angle.getText().matches("([0-9]*)\\.([0-9]*)") || angle.getText().matches("[0-9]*")) {	res = true; }}}
 		return res;
 	}
 }

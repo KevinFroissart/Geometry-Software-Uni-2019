@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,9 +48,33 @@ public class HomothetieParam {
 			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
+		valider.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !scale.getText().isEmpty() && doubleInt(coordX, coordY, scale)) {
+					try {
+						double x =Double.parseDouble(coordX.getText());
+						double y =Double.parseDouble(coordY.getText());
+						double setScale = Double.parseDouble(scale.getText());
+						Controller.transfo.add(new Homothetie(setScale, x, y));
+						stage.close();
+						HomothetieParam.res = true;
+					}catch(NumberFormatException error) {
+						System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
+					}
+				} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
+			}
+		});
+
 		retour.setOnAction(e -> { 
 			RotationParam.res = false;
 			stage.close();
+		});
+
+		retour.setOnKeyPressed(e -> { 
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				RotationParam.res = false;
+				stage.close();
+			}
 		});
 
 		VBox layout = new VBox();
@@ -71,8 +96,8 @@ public class HomothetieParam {
 	public static boolean doubleInt(TextField coordX, TextField coordY, TextField scale) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
-		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
-		if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
+			if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
+				if(scale.getText().matches("([0-9]*)\\.([0-9]*)") || scale.getText().matches("[0-9]*")) {	res = true; }}}
 		return res;
 	}
 }

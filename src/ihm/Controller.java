@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -24,7 +25,6 @@ import javafx.scene.paint.Color;
 import transforms.Composition;
 import transforms.LibraryException;
 import transforms.elementaires.Transformation;
-import transforms.elementaires.Translation;
 import transforms.mobile.GrilleAdaptable;
 import transforms.mobile.Maison;
 import transforms.mobile.Motif;
@@ -72,7 +72,9 @@ public class Controller  {
 	public static ArrayList<Maison> motifList = new ArrayList<>();
 	private Motif motif;
 	private Color couleur;
-	private static double zoom = 30.0;
+	private static double zoom;
+	private static double zoomDepart;
+	private static double zoomRatio;
 	private static GrilleAdaptable grille;
 	public static int nbTransfo = 0;
 	//private static Transformation selection;
@@ -81,13 +83,19 @@ public class Controller  {
 		pane.prefHeight(320.0);
 		pane.prefWidth(398.0);
 		composition = new Composition();
+		zoom = composition.getScale();
+		zoomDepart = composition.getScale();
+		zoomRatio = 3.5;
 		composition.setZoom(zoom, 400.0, 342.5);
+		pane.setOnScroll(e->{
+			zoom(e);
+		});
 		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
 		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
+		boutonMotif.isFocused();
 	}
-
 
 	public void doLancer(ActionEvent actionEvent) {
 		if(nbTransfo > 0) {
@@ -129,7 +137,8 @@ public class Controller  {
 		display.add(true);
 		boutonMotif.setDisable(false);
 		boutonLancer.setDisable(false);
-		composition.setZoom(30.0, 400.0, 342.5);
+		composition.setZoom(zoomDepart, 400.0, 342.5);
+		zoom = zoomDepart;
 		nbTransfo = 0;
 	}
 
@@ -180,13 +189,21 @@ public class Controller  {
 	}
 
 	public void doZoomPlus(ActionEvent actionEvent) {
-		if(zoom < 90) zoom += 5 + zoom/25.25;
+		if(zoom < 90) zoom += zoomRatio;
 		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
 	}
 
 	public void doZoomMoins(ActionEvent actionEvent) {
-		if(zoom > 15) zoom -= 5 + zoom/15.25;
+		if(zoom > 15) zoom -= zoomRatio;
 		composition.setZoom(zoom, composition.getOffsetX(), composition.getOffsetY());
+	}
+	
+	public void zoom(ScrollEvent e) {
+		if(e.getDeltaY() > 0) {
+			doZoomPlus(null);
+		} else {
+			doZoomMoins(null);
+		}
 	}
 
 	public void dragGrille() {
@@ -198,7 +215,7 @@ public class Controller  {
 
 	public void doModifier(ActionEvent actionEvent) {
 		if(!matriceA.getSelectionModel().isEmpty()) {
-			if(matriceA.getSelectionModel().getSelectedItem().IDENTITE.equals(new Translation(0,0)));
+			//if(matriceA.getSelectionModel().getSelectedItem().));
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
@@ -220,7 +237,7 @@ public class Controller  {
 				pane.getChildren().removeAll(allNodes);
 				doModif(index + 1, index - 1, index - 1);
 				doTransformation();
-			}
+			} else Erreur.popUp("Erreur", "Vous ne pouvez pas aller plus haut");
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 
@@ -231,7 +248,7 @@ public class Controller  {
 				pane.getChildren().removeAll(allNodes);
 				doModif(index, index + 1, index + 2);
 				doTransformation();
-			}
+			} else Erreur.popUp("Erreur", "Vous ne pouvez pas aller plus bas");
 		} else Erreur.popUp("Aucune transformation", "Selectionnez une transformation pour pouvoir la modifier");
 	}
 	

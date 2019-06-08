@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,7 +15,7 @@ import transforms.elementaires.Translation;
 public class TranslationParam {
 
 	static boolean res = false;
-	
+
 	public static boolean display() {
 
 		Stage stage = new Stage();
@@ -45,9 +46,32 @@ public class TranslationParam {
 			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
+		valider.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && doubleInt(coordX, coordY))	{
+					try {
+						double x =Double.parseDouble(coordX.getText());
+						double y =Double.parseDouble(coordY.getText());
+						Controller.transfo.add(new Translation(x, y));
+						stage.close();
+						TranslationParam.res = true;
+					}catch(NumberFormatException error) {
+						System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
+					}
+				} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
+			}
+		});
+
 		retour.setOnAction(e -> { 
 			RotationParam.res = false;
 			stage.close();
+		});
+
+		retour.setOnKeyPressed(e -> { 
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				RotationParam.res = false;
+				stage.close();
+			}
 		});
 
 		VBox layout = new VBox();
@@ -65,11 +89,11 @@ public class TranslationParam {
 
 		return TranslationParam.res;
 	}
-	
+
 	public static boolean doubleInt(TextField coordX, TextField coordY) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
-		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) { res = true; }}
+			if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) { res = true; }}
 		return res;
 	}
 }

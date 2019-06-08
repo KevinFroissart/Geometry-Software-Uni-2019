@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,6 +48,30 @@ public class RotationParam {
 			} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
 		});
 
+		valider.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				if(!coordX.getText().isEmpty() && !coordY.getText().isEmpty() && !angle.getText().isEmpty() && 	doubleInt(coordX, coordY, angle)) {
+					try {
+						double x =Double.parseDouble(coordX.getText());
+						double y =Double.parseDouble(coordY.getText());
+						double angleDeg = Double.parseDouble(angle.getText());
+						Controller.transfo.add(new Rotation(angleDeg, x, y));
+						stage.close();
+						RotationParam.res = true;
+					}catch(NumberFormatException error) {
+						System.out.println("Saisie incorrecte, veuillez entrer des valeurs numériques");
+					}
+				} else Erreur.popUp("Aucune saisie", "Veuillez saisir des valeurs numériques");
+			}
+		});
+
+		retour.setOnKeyPressed(e -> { 
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				RotationParam.res = false;
+				stage.close();
+			}
+		});
+
 		retour.setOnAction(e -> { 
 			RotationParam.res = false;
 			stage.close();
@@ -67,12 +92,12 @@ public class RotationParam {
 
 		return RotationParam.res;
 	}
-	
+
 	public static boolean doubleInt(TextField coordX, TextField coordY, TextField angle) {
 		boolean res = false;
 		if(coordX.getText().matches("([0-9]*)\\.([0-9]*)") || coordX.getText().matches("[0-9]*")) {
-		if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
-		if(angle.getText().matches("([0-9]*)\\.([0-9]*)") || angle.getText().matches("[0-9]*")) {	res = true; }}}
+			if(coordY.getText().matches("([0-9]*)\\.([0-9]*)") || coordY.getText().matches("[0-9]*")) {
+				if(angle.getText().matches("([0-9]*)\\.([0-9]*)") || angle.getText().matches("[0-9]*")) {	res = true; }}}
 		return res;
 	}
 }

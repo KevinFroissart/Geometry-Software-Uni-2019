@@ -28,6 +28,9 @@ public class TranslationParam {
 
 		TextField coordX = new TextField();
 		TextField coordY = new TextField();
+		
+		coordX.setMaxWidth(150);
+		coordY.setMaxWidth(150);
 
 		coordX.setPromptText("Valeur de X :");
 		coordY.setPromptText("Valeur de Y :");

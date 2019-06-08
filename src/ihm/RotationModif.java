@@ -30,6 +30,10 @@ public class RotationModif {
 		TextField coordX = new TextField();
 		TextField coordY = new TextField();
 		TextField angle = new TextField();
+		
+		coordX.setMaxWidth(150);
+		coordY.setMaxWidth(150);
+		angle.setMaxWidth(150);
 
 		coordX.setPromptText("Valeur de X :");
 		coordY.setPromptText("Valeur de Y :");

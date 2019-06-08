@@ -30,7 +30,11 @@ public class HomothetieModif {
 		TextField coordX = new TextField();
 		TextField coordY = new TextField();
 		TextField scale = new TextField();
-
+		
+		coordX.setMaxWidth(150);
+		coordY.setMaxWidth(150);
+		scale.setMaxWidth(150);
+		
 		coordX.setPromptText("Valeur de X :");
 		coordY.setPromptText("Valeur de Y :");
 		scale.setPromptText("Valeur du facteur :");

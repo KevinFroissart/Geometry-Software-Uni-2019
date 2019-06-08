@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -66,11 +68,14 @@ public class Controller  {
 	ListView<Transformation> matriceA;
 
 	@FXML
-	VBox vBoxDroite,vBoxMatrice,vBoxListTransfo,vBoxBouton;
+	VBox vBoxMatrice,vBoxListTransfo,vBoxBouton;
 
 	@FXML
 	HBox hBoxBoutons;
 
+	@FXML
+	SplitPane splitPaneDroite;
+	
 	@FXML
 	Image btnImage;
 
@@ -102,7 +107,7 @@ public class Controller  {
 		});
 		grille = new GrilleAdaptable(composition, pane, 1, 1);
 		pane.getChildren().add(composition.getGrille(pane));
-		vBoxDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
+		splitPaneDroite.setStyle("-fx-border-width: 0.5; -fx-border-color: LIGHTGREY");
 		dragGrille();
 		ImageView Iaide = new ImageView("File:ressources/aide_petit.png");
 		Iaide.fitHeightProperty().set(17);
@@ -111,6 +116,7 @@ public class Controller  {
 		boutonAide.setPrefHeight(25);
 		Iaide.setPreserveRatio(true);
 		boutonMotif.isFocused();
+		labelMatrice.setAlignment(Pos.CENTER);
 	}
 
 	public void doLancer(ActionEvent actionEvent) {

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,7 +38,16 @@ public static void popUp() {
 		
 		
 		Button fermer = new Button("Fermer");
-		fermer.setOnAction(e -> window.close());
+	
+		fermer.setOnAction(e -> {
+			window.close();
+		});
+		
+		fermer.setOnKeyPressed(e -> { 
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				window.close();
+			}
+		});
 		
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(15,50,20,50));

@@ -3,10 +3,8 @@ package ihm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javafx.animation.Timeline;
-import javafx.beans.binding.SetBinding;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +16,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -77,9 +74,7 @@ public class Controller  {
 	private static double zoom = 30.0;
 	private static GrilleAdaptable grille;
 	public static int nbTransfo = 0;
-	private static Button editer;
-	private static Button supprimer;
-	private static Transformation selection;
+	//private static Transformation selection;
 
 	public void initialize() {
 		pane.prefHeight(320.0);
@@ -96,6 +91,9 @@ public class Controller  {
 	public void doLancer(ActionEvent actionEvent) {
 		if(nbTransfo > 0) {
 			try {
+				boutonTranslation.setDisable(true);
+				boutonRotation.setDisable(true);
+				boutonHomothetie.setDisable(true);
 				boutonLancer.setDisable(true);
 				motif = composition.getStep(0);
 				motif.setStroke(Color.BLUE);
@@ -109,6 +107,9 @@ public class Controller  {
 				tl.play();
 				tl.setOnFinished(e-> {
 					boutonLancer.setDisable(false);
+					boutonTranslation.setDisable(false);
+					boutonRotation.setDisable(false);
+					boutonHomothetie.setDisable(false);
 				});    
 			} catch (LibraryException e) {
 				e.printStackTrace();
@@ -125,14 +126,14 @@ public class Controller  {
 		matriceA.getItems().clear();
 		display.clear();
 		display.add(true);
+		boutonMotif.setDisable(false);
 		boutonLancer.setDisable(false);
 		composition.setZoom(30.0, 400.0, 342.5);
 		nbTransfo = 0;
 	}
 
 	public void doAjouterMotif(ActionEvent actionEvent) {
-		//editer.setGraphic(new ImageView("File:ressources/editer.png"));
-		//supprimer.setGraphic(new ImageView("File:ressources/delete.png"));
+		boutonMotif.setDisable(true);
 		Motif maison = new Maison(composition);
 		motifList.add((Maison) maison);
 		composition.setMotif(maison);
@@ -234,7 +235,7 @@ public class Controller  {
 	}
 	
 	public void doModif(int index, int add, int remove) {
-		final ArrayList<Transformation> tmpTra = transfo;
+		//final ArrayList<Transformation> tmpTra = transfo;
 		final ArrayList<Boolean> tmpDis = display;
 		final ObservableList<Transformation> tmpMa = matriceA.getItems();
 		final ObservableList<Transformation> tmpCom = composition.getSequence();
